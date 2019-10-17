@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_221306) do
   create_table "accounts", force: :cascade do |t|
     t.decimal "balance", precision: 2, scale: 2, default: "0.0"
     t.string "number"
+    t.integer "status", limit: 2
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,11 +37,9 @@ ActiveRecord::Schema.define(version: 2019_10_14_221306) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

@@ -1,4 +1,5 @@
 class Account < ApplicationRecord
+  enum status: [ :active, :archived ]
   belongs_to :user
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
   before_create :generate_account_number

@@ -4,9 +4,9 @@ class AccountFlowTest < ActionDispatch::IntegrationTest
   test "cannot withdraw from account more than the balance" do
     account = create(:account, balance: 0)
     token = JsonWebToken.encode(user_id: account.user.id)
-
+    account.user.update(password: '123abc')
     post "/user/withdraw", 
-      params: {withdraw_value: 100},
+      params: {withdraw_value: 100, accessPassword: '123abc'},
       headers: {'Authorization' => token}
 
       assert_equal '400', @response.code
@@ -15,10 +15,11 @@ class AccountFlowTest < ActionDispatch::IntegrationTest
 
   test "can withdraw from account" do
     account = create(:account, balance: 100)
+    account.user.update(password: '123abc')
     token = JsonWebToken.encode(user_id: account.user.id)
 
     post "/user/withdraw", 
-      params: {withdraw_value: 50},
+      params: {withdraw_value: 50, accessPassword: '123abc'},
       headers: {'Authorization' => token}
 
     assert_equal '200', @response.code
@@ -62,9 +63,9 @@ class AccountFlowTest < ActionDispatch::IntegrationTest
     account = create(:account, balance: 100)
     target_account = create(:account, balance: 0)
     token = JsonWebToken.encode(user_id: account.user.id)
-
+    account.user.update(password: '123abc')
     post "/user/transfer", 
-      params: {transferValue: 20, accountNumber: target_account.number},
+      params: {transferValue: 20, accountNumber: target_account.number, accessPassword: '123abc'},
       headers: {'Authorization' => token}
 
     assert_equal '200', @response.code
@@ -74,9 +75,9 @@ class AccountFlowTest < ActionDispatch::IntegrationTest
   test "handle transfer to invalid account" do
     account = create(:account, balance: 100)
     token = JsonWebToken.encode(user_id: account.user.id)
-
+    account.user.update(password: '123abc')
     post "/user/transfer", 
-      params: {transferValue: 20, accountNumber: '000000'},
+      params: {transferValue: 20, accountNumber: '000000', accessPassword: '123abc'},
       headers: {'Authorization' => token}
 
     assert_equal '400', @response.code
@@ -86,9 +87,10 @@ class AccountFlowTest < ActionDispatch::IntegrationTest
   test "handle missing params in transfer to account" do
     account = create(:account, balance: 100)
     token = JsonWebToken.encode(user_id: account.user.id)
-
+    account.user.update(password: '123abc')
     post "/user/transfer", 
-      headers: {'Authorization' => token}
+      headers: {'Authorization' => token},
+      params: {accessPassword: '123abc'}
 
     assert_equal '400', @response.code
     assert_equal 'Dados necessários não informados', @response.parsed_body['message']

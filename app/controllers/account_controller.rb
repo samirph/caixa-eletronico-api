@@ -1,5 +1,6 @@
 class AccountController < ApplicationController
     before_action :require_authorization
+    before_action :authenticate_operation, only: [:withdraw, :transfer]
 
     def show
         render json: current_user.to_json(:include => :account)
@@ -39,5 +40,11 @@ class AccountController < ApplicationController
         rescue => e
             render json: {message: e.message}, status: 422
         end
+    end
+
+    private
+
+    def authenticate_operation
+        User.authenticate_by_account_number_and_password current_user.account.number, params[:accessPassword]
     end
 end
