@@ -33,9 +33,6 @@ group :development, :test do
   gem 'factory_bot_rails'
 
   gem 'pry'
-
-  # Use sqlite3 as the database for Active Record
-  #gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
