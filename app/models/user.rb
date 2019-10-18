@@ -6,7 +6,7 @@ class User < ApplicationRecord
   def self.authenticate_by_account_number_and_password account_number, access_password
       account = Account.find_by(number: account_number)
       if account.user.authenticate(access_password)
-        {token: JsonWebToken.encode(user_id: account.user.id)}
+        {token: JsonWebToken.encode({user_id: account.user.id})}
       else 
         raise StandardError.new(), 'Número da conta ou senha incorretos'
       end
