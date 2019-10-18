@@ -42,6 +42,11 @@ class AccountController < ApplicationController
         end
     end
 
+    def archive
+        current_user.account.archived!
+        render json: {message: 'Conta encerrada'}, status: 200
+    end
+
     private
 
     def authenticate_operation

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     post '/transfer', to: 'account#transfer'
     post '/login', to: 'user#login'
     post '/create', to: 'user#create'
+    post '/archive', to: 'account#archive'
   end
 
 end

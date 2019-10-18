@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2019_10_14_221306) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
-    t.decimal "balance", precision: 2, scale: 2, default: "0.0"
+    t.decimal "balance", precision: 32, scale: 2, default: "0.0"
     t.string "number"
     t.integer "status", limit: 2
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 2019_10_14_221306) do
     t.string "operation_type"
     t.decimal "previous_origin_balance"
     t.decimal "previous_target_balance"
-    t.integer "origin_account_id"
-    t.integer "target_account_id"
+    t.bigint "origin_account_id"
+    t.bigint "target_account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["origin_account_id"], name: "index_transactions_on_origin_account_id"

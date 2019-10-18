@@ -6,7 +6,7 @@ class UserController < ApplicationController
         rescue StandardError => e 
             puts e.message
             puts e.backtrace
-            render status: 400, message: e.message
+            render json: {message: e.message},status: 400
         end
     end
 
