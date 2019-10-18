@@ -4,6 +4,8 @@ class UserController < ApplicationController
             result = User.authenticate_by_account_number_and_password params[:account_number], params[:access_password]
             render json: result
         rescue StandardError => e 
+            puts e.message
+            puts e.backtrace
             render status: 400, message: e.message
         end
     end
