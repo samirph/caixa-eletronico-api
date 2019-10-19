@@ -50,6 +50,10 @@ class AccountController < ApplicationController
     private
 
     def authenticate_operation
-        User.authenticate_by_account_number_and_password current_user.account.number, params[:accessPassword]
+        begin
+            User.authenticate_by_account_number_and_password current_user.account.number, params[:accessPassword] 
+        rescue StandardError => e
+            render json: {message: 'Não autorizado'}, status: 401
+        end
     end
 end

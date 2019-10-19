@@ -22,7 +22,7 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     user = create(:user, password: '123abc', account: create(:account))
 
     post "/user/login", 
-      params: {accountNumber: user.account.number , accessPassword: '123abc'}
+      params: {account_number: user.account.number , access_password: '123abc'}
 
     assert_equal '200', @response.code
   end
@@ -31,7 +31,7 @@ class UserFlowTest < ActionDispatch::IntegrationTest
     user = create(:user, password: '123abc', account: create(:account))
 
     post "/user/login", 
-      params: {accountNumber: user.account.number , accessPassword: 'abc123'}
+      params: {account_number: user.account.number , access_password: 'abc123'}
 
     assert_equal '400', @response.code
   end

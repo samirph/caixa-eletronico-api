@@ -5,12 +5,13 @@ class User < ApplicationRecord
   
   def self.authenticate_by_account_number_and_password account_number, access_password
       account = Account.find_by(number: account_number)
-      raise StandardError.new(), 'Esta conta está encerrada' if account.archived?
-      if account.user.authenticate(access_password)
-        {token: JsonWebToken.encode({user_id: account.user_id})}
-      else 
+      if account.blank? || account.user.authenticate(access_password).blank?
         raise StandardError.new(), 'Número da conta ou senha incorretos'
       end
+      raise StandardError.new(), 'Esta conta está encerrada' if account.archived?
+
+      {token: JsonWebToken.encode({user_id: account.user_id})}
+
   end
 
   def self.register name
