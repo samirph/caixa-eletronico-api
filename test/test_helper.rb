@@ -9,7 +9,5 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
   include FactoryBot::Syntax::Methods
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-
   # Add more helper methods to be used by all tests here...
 end

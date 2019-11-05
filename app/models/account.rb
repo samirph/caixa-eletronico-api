@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  enum status: %i[active archived]
+  enum status: { active: 0, archived: 1 }
   belongs_to :user
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
   before_create :generate_account_number

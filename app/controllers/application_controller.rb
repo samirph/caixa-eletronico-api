@@ -13,9 +13,9 @@ class ApplicationController < ActionController::API
 
   def require_authorization
     if !current_user
-      render json: { message: 'Não autorizado' }, status: 401
+      render json: { message: 'Não autorizado' }, status: :unauthorized
     elsif current_user.account.archived?
-      render json: { message: 'Esta conta está encerrada' }, status: 400
+      render json: { message: 'Esta conta está encerrada' }, status: :bad_request
     end
   end
 end

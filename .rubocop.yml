@@ -1,0 +1,7 @@
+require: rubocop-rails
+AllCops:
+  Excludes:
+    - db/**
+    - bin/**
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
