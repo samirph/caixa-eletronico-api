@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-  test "deposit value" do
+  test 'deposit value' do
     account = create(:account, balance: 0)
     assert_equal account.balance, 0
     assert_equal Transaction.count, 0
@@ -11,7 +13,7 @@ class AccountTest < ActiveSupport::TestCase
     assert_equal Transaction.count, 1
   end
 
-  test "withdraw value" do
+  test 'withdraw value' do
     account = create(:account, balance: 100)
     assert_equal account.balance, 100
     assert_equal Transaction.count, 0
@@ -21,7 +23,7 @@ class AccountTest < ActiveSupport::TestCase
     assert_equal Transaction.count, 1
   end
 
-  test "transfer value" do
+  test 'transfer value' do
     origin_account = create(:account, balance: 100)
     target_account = create(:account, balance: 100)
     assert_equal Transaction.count, 0

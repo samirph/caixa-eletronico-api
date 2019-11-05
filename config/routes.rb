@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope 'user' do
@@ -10,5 +12,4 @@ Rails.application.routes.draw do
     post '/create', to: 'user#create'
     post '/archive', to: 'account#archive'
   end
-
 end
